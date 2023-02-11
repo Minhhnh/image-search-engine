@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Captioning</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pushster&family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid ms-5">
+            <a class="navbar-brand me-3 logo-group" href="">
+                <img src="http://127.0.0.1:8000/static/img/logo.png" alt="" width="35" height="35"
+                    class="d-inline-block align-text-top me-2 logo">
+                <div class="text-logo">
+                    Image Search Engine
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-3">
+                    <li class="nav-item">
+                        <a class="nav-link upload" href="http://127.0.0.1:3000/upload">Upload Image</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-caption">
+        <h1>
+            Image Search Engine
+        </h1>
+        <p class="col-7">
+            By typing your Vietnamese caption in the following input, we will help you find the images that match to
+            your caption.
+        </p>
+        <form class="row g-3 mb-5" action="/" method="post">
+            <div class="input-group align-content-center input-custom">
+                <label class="label-input">Enter Vietnamese Caption: </label>
+                <input type="text" class="form-control w-75 input-text" name="query">
+            </div>
+            <div class="btn-contain">
+                <button type="submit" class="btn mb-3 btn-custom">Find</button>
+            </div>
+        </form>
+        {% if matches %}
+        <p class="text-center">{{matches}}</p>
+        {% endif %}
+        <div class="container">
+            <div class="row ms-2">
+                {% for match in matches %}
+                <div class="col-4 mb-5 image-frame">
+                    <img class="image-mono" src="http://127.0.0.1:8000/flickr30k_images/flickr30k_images//{{match}}"
+                        alt="">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
